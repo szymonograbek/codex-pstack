@@ -1,0 +1,5 @@
+interface:
+  display_name: "interrogate"
+  short_description: "Independent Astra reviews and a judged verdict"
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,5 @@
+interface:
+  display_name: "blast radius"
+  short_description: "Find what a change could break somewhere else before it ships,"
+policy:
+  allow_implicit_invocation: false

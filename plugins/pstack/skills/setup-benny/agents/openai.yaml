@@ -1,0 +1,5 @@
+interface:
+  display_name: "setup benny"
+  short_description: "Set up Benny's optional Slack triage and bug-reproduction"
+policy:
+  allow_implicit_invocation: false

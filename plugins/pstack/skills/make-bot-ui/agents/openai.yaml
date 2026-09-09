@@ -1,0 +1,5 @@
+interface:
+  display_name: "make bot ui"
+  short_description: "Build a local UI that starts bounded Codex tasks, with"
+policy:
+  allow_implicit_invocation: false
