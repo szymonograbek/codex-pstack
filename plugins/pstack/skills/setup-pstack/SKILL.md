@@ -1,6 +1,6 @@
 ---
 name: setup-pstack
-description: Configure which models pstack uses per role. Detects your available models and writes an always-applied rule that overrides the skill defaults. Use for $setup-pstack, "configure pstack models", or changing pstack's model choices.
+description: Configure PStack models and install its custom Codex agents as symlinks from a local checkout. Use for $setup-pstack, "configure pstack models", or setting up PStack agents.
 ---
 
 # Setup pstack
@@ -58,10 +58,24 @@ architect runners: gpt-6-astra/medium, gpt-6-astra/medium, gpt-6-astra/medium, g
 interrogate reviewers: gpt-6-astra/medium, gpt-6-astra/medium, gpt-6-astra/medium, gpt-6-astra/medium
 ```
 
-### 6. Confirm
+### 6. Link custom agents
 
-Tell the user the section was written and that it applies to new sessions. Re-running this skill updates it.
+Use a persistent checkout of the PStack repository, not a versioned plugin cache or temporary marketplace snapshot. Accept a checkout path from the user or locate an existing checkout whose Git remote matches the installed PStack repository. If none exists, ask where to keep it. Resolve `<plugin-root>` to that checkout's `plugins/pstack` directory.
 
-### 7. Offer a verification skill (optional)
+Run the bundled installer with the absolute plugin root:
+
+```sh
+node <setup-skill-dir>/scripts/install-agents.mjs <plugin-root>
+```
+
+It creates `poteto-agent.toml` and `comment-sicko.toml` symlinks under `${CODEX_HOME:-$HOME/.codex}/agents/`. Correct links are unchanged. Existing files or links pointing elsewhere are preserved and reported as conflicts; ask before replacing them. Keep the source checkout in place. Pulling updates there updates the linked definitions; reinstalling only the plugin does not update that checkout.
+
+Poteto's model is selected per phase at dispatch; its definition fixes medium effort. Comment Sicko fixes Sol/medium. Custom-agent file settings take precedence over dispatch settings, so report conflicting role choices instead of claiming the global role section overrides them.
+
+### 7. Confirm
+
+Report the model section and both symlink targets. Start a new Codex session to load the agents. Verify the runtime exposes `poteto-agent` and `comment-sicko` before dispatching by name; creating the files alone is not proof of discovery. Re-running this skill updates the model section and verifies the links.
+
+### 8. Offer a verification skill (optional)
 
 Check whether the project has a way to drive the real app for proof (a `verify-*` skill, or an existing harness). If not, offer once: "want a project-local verification skill, so agents can drive the app the way a user does and prove changes work? I can generate one with $create-verification-skill." On yes, invoke `$create-verification-skill` (resolves wherever pstack is installed: workspace, user, or plugin). On no, move on without pushing.

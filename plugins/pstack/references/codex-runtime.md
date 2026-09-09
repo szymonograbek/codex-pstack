@@ -4,7 +4,7 @@ Resolve resources from the installed skill's `SKILL.md` directory. Resolve anoth
 
 Resolve named PStack skills from this plugin before looking for standalone installations. This includes `control-ui`, `control-cli`, `deslop`, and `librarian`. Use the bundled Librarian skill for dependency source lookups. Codex's built-in `skill-creator` and project-specific skills or service adapters remain environment-provided.
 
-Use the available Codex subagent tools. Give each child its goal, scope, constraints, resource paths, and completion criteria. Pass the Poteto or Comment Sicko prompt as instructed by the calling skill. These are prompt files, not registered agent types. Isolate concurrent writers in separate worktrees or exclusive paths. Batch work within the available agent limit; a requested panel size does not increase runtime capacity.
+Use the available Codex subagent tools. Give each child its goal, scope, constraints, resource paths, and completion criteria. Setup links the bundled `poteto-agent` and `comment-sicko` definitions into Codex's personal agents directory. For calls requiring either role, select that named custom agent and pass the prompt path required by the calling skill. If the runtime does not expose the role, report that setup and a new session are required; do not claim a generic agent is the registered role. Other roles still use generic agents. Isolate concurrent writers in separate worktrees or exclusive paths. Batch work within the available agent limit; a requested panel size does not increase runtime capacity.
 
 ## Models and reasoning
 

@@ -17,7 +17,7 @@ Start a new Codex thread. Review and trust the PStack hooks in Codex's hook cont
 - `$pstack:architect`, `$pstack:arena`, `$pstack:swarm`, and `$pstack:interrogate` provide design and review workflows.
 - `$pstack:setup-benny` opens the dormant Slack triage and bug-reproduction setup.
 
-Local skill invocation policies are preserved. In particular, most skills remain explicitly invoked, as they were in the source directory. Agent prompts live under `plugins/pstack/skills/poteto-mode/references/agents/` and work with Codex's generic subagent tools.
+Local skill invocation policies are preserved. In particular, most skills remain explicitly invoked, as they were in the source directory. Run `$pstack:setup-pstack` to symlink the custom `poteto-agent` and `comment-sicko` definitions from a persistent repository checkout into `${CODEX_HOME:-$HOME/.codex}/agents/`, then start a new session. Setup preserves conflicting files. Keep that checkout available and pull it when updating the agents. Agent prompts remain under `plugins/pstack/skills/poteto-mode/references/agents/`.
 
 ## What changed
 
