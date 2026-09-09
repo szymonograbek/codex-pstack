@@ -1,6 +1,6 @@
 {
   "name": "pstack",
-  "version": "0.1.0+codex.20260909182409",
+  "version": "0.1.0+codex.20260909182748",
   "description": "Personal PStack workflows for Codex, with OpenAI model routing and session hooks.",
   "author": {
     "name": "Szymon Ograbek"

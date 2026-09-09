@@ -33,5 +33,5 @@ for (const relative of readdirSync(root, { recursive: true })) {
 }
 
 const hooks = JSON.parse(readFileSync(path.join(root, "hooks/hooks.json"), "utf8"));
-assert.deepEqual(Object.keys(hooks.hooks).sort(), ["SessionStart", "SubagentStart", "UserPromptSubmit"]);
+assert.deepEqual(Object.keys(hooks.hooks).sort(), ["SessionStart", "UserPromptSubmit"]);
 console.log(`Validated ${names.length} skills, resource links, plugin paths, and hook registration.`);

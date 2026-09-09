@@ -21,7 +21,7 @@ export async function handleHook(input, { dataDirectory, root = pluginRoot } = {
       typeof dataDirectory !== "string" || !path.isAbsolute(dataDirectory)) return null;
 
   const event = input.hook_event_name;
-  if (!["UserPromptSubmit", "SessionStart", "SubagentStart"].includes(event)) return null;
+  if (!["UserPromptSubmit", "SessionStart"].includes(event)) return null;
   if (event === "SessionStart" && !["resume", "compact"].includes(input.source)) return null;
   const key = createHash("sha256").update(JSON.stringify([input.session_id, path.resolve(input.cwd)])).digest("hex");
   const directory = path.join(dataDirectory, "poteto-mode");
@@ -55,9 +55,6 @@ export async function handleHook(input, { dataDirectory, root = pluginRoot } = {
   }
 
   const runtime = path.join(root, "references/codex-runtime.md");
-  if (event === "SubagentStart") {
-    return context(event, `The parent session uses PStack. Read ${runtime}. Follow the assigned role and its prompt file; preserve the parent's task scope.`);
-  }
   const skill = path.join(root, "skills/poteto-mode/SKILL.md");
   return context(event, `${activating ? "Poteto Mode activation receipt: session persistence is enabled." : "Poteto Mode remains active for this session."} Read ${skill} and ${runtime}. Apply the user's current request and authority limits.`);
 }

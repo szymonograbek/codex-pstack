@@ -25,7 +25,7 @@ The 50 local skills are the primary source. All their supporting files are inclu
 
 The port replaces hardcoded flat-install paths, adds plugin UI metadata, and centralizes Codex model and delegation guidance. Models are OpenAI-only: Astra/medium for planning, knowledge-heavy analysis, and complex judgment; Sol/medium for every code modification and routine rule-based review, including Comment Sicko; Terra/medium for read-only evidence collection; and Luna/high only for optional narrow factual lookups. Adversarial review panels use independent Astra agents; code candidate panels use Sol. Setup verifies availability in the target runtime.
 
-Session hooks use `UserPromptSubmit`, `SessionStart`, and `SubagentStart`. State is scoped by session and project, written atomically under `PLUGIN_DATA`, and retained for resume. The disable command removes that session's state. Hooks do not modify repository files or grant external-write authority.
+Session hooks use `UserPromptSubmit` and `SessionStart`. State is scoped by session and project, written atomically under `PLUGIN_DATA`, and retained for resume. The disable command removes that session's state. Custom agents load their own instructions; hooks do not inject context into subagents, modify repository files, or grant external-write authority.
 
 Benny is an optional source pack. It needs a repository, channels, credentials, adapters, and an execution schedule before use. No jobs or messages are created by plugin installation. Its polling contract requires project-specific durable state and reconciliation before unattended activation.
 

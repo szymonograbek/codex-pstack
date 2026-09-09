@@ -48,9 +48,7 @@ test("state is isolated by session and project and does not interpret quoted men
   await handleHook(prompt("$poteto-mode"), options);
   assert.equal(await handleHook(prompt("continue", "two"), options), null);
   assert.equal(await handleHook(prompt("continue", "one", "/other"), options), null);
-  const child = await handleHook({ ...prompt(""), hook_event_name: "SubagentStart", agent_type: "default" }, options);
-  assert.match(child.hookSpecificOutput.additionalContext, /assigned role/);
-  assert.doesNotMatch(child.hookSpecificOutput.additionalContext, /Read .*skills\/poteto-mode/);
+  assert.equal(await handleHook({ ...prompt(""), hook_event_name: "SubagentStart", agent_type: "default" }, options), null);
   assert.equal(await handleHook({ ...prompt(""), hook_event_name: "Stop" }, options), null);
 });
 

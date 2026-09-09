@@ -17,14 +17,6 @@
         "timeout": 5,
         "additionalContextLimit": 1500
       }]
-    }],
-    "SubagentStart": [{
-      "hooks": [{
-        "type": "command",
-        "command": "node \"$PLUGIN_ROOT/hooks/poteto-mode.mjs\"",
-        "timeout": 5,
-        "additionalContextLimit": 1500
-      }]
     }]
   }
 }
