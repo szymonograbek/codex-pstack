@@ -85,12 +85,6 @@
       "adapted": false
     },
     {
-      "path": "skills/make-bot-ui/SKILL.md",
-      "source": "upstream",
-      "sha256": "3624c8ef16cf2e48deb2a4049e72c6962a9431c8d6c6af90e7bd7ea0375224ec",
-      "adapted": true
-    },
-    {
       "path": "skills/no-comments/SKILL.md",
       "source": "local",
       "sha256": "063a33f00033ea836ee26ffff4fc798a1c17b727fa8a83c75ad92a39cca358a2",
@@ -1097,6 +1091,48 @@
       "source": "upstream",
       "sha256": "e5e53013692568cf69da8e8b302fff929fe2fbc9aec1a4651fd7997e2c7a4025",
       "adapted": true
+    },
+    {
+      "path": "skills/control-ui/SKILL.md",
+      "source": "local",
+      "sha256": "410cae25bdb1e5d2323b126abc5047b0213be7fdb0195710213fa8de8a751871",
+      "adapted": true
+    },
+    {
+      "path": "skills/control-cli/SKILL.md",
+      "source": "local",
+      "sha256": "13ac93e595bbda2000849bdb815d5f2ca03f7c2ca63788c8335f9212b9b422a2",
+      "adapted": false
+    },
+    {
+      "path": "skills/deslop/LICENSE",
+      "source": "local",
+      "sha256": "702f5f331b56aff0e33d8c7826df5202559f894145eb70355c6477b55b5bb8a0",
+      "adapted": false
+    },
+    {
+      "path": "skills/deslop/SKILL.md",
+      "source": "local",
+      "sha256": "397de1b04e7a990fd4f8df12a56525f5b7f38958c3ab2d2034ea256b8fade6f2",
+      "adapted": false
+    },
+    {
+      "path": "skills/librarian/SKILL.md",
+      "source": "local",
+      "sha256": "1c73b78d0e52be3aa5ed9e07ffc7a89d7a77bf08510076c73e86fca0b9826783",
+      "adapted": false
+    },
+    {
+      "path": "skills/librarian/scripts/lookup.mjs",
+      "source": "local",
+      "sha256": "a476143f25ea8cef20e426d422145cedc5d144d66871e666f55eeb473371de0e",
+      "adapted": false
+    },
+    {
+      "path": "skills/librarian/scripts/lookup.test.mjs",
+      "source": "local",
+      "sha256": "244300b4ff5f2b017479ab3ce88b1702a7de8405a47ee82ea14295ad444b0347",
+      "adapted": false
     }
   ]
 }

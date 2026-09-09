@@ -1,6 +1,6 @@
 # PStack for Codex
 
-Personal Codex marketplace with the PStack skills from `~/.agents/skills`, their playbooks, agent prompts, and command-line tools. The package also includes Benny and a Codex adaptation of Make Bot UI.
+Personal Codex marketplace with the PStack skills from `~/.agents/skills`, their playbooks, agent prompts, and command-line tools. The package also includes Benny.
 
 ## Use
 
@@ -16,21 +16,20 @@ Start a new Codex thread. Review and trust the PStack hooks in Codex's hook cont
 - `$pstack:setup-pstack` configures OpenAI model choices by role.
 - `$pstack:architect`, `$pstack:arena`, `$pstack:swarm`, and `$pstack:interrogate` provide design and review workflows.
 - `$pstack:setup-benny` opens the dormant Slack triage and bug-reproduction setup.
-- `$pstack:make-bot-ui` builds a local UI for bounded Codex tasks.
 
 Local skill invocation policies are preserved. In particular, most skills remain explicitly invoked, as they were in the source directory. Agent prompts live under `plugins/pstack/skills/poteto-mode/references/agents/` and work with Codex's generic subagent tools.
 
 ## What changed
 
-The 46 matching local skills are the primary source. All their supporting files are included except installed dependencies and OS metadata. The remaining upstream skill, Make Bot UI, now uses Codex CLI or app-server tasks. Benny retains the original report-processing workflows with Codex setup and a shared trigger contract.
+The 50 local skills are the primary source. All their supporting files are included except installed dependencies and OS metadata. Benny retains the original report-processing workflows with Codex setup and a shared trigger contract.
 
 The port replaces hardcoded flat-install paths, adds plugin UI metadata, and centralizes Codex model and delegation guidance. Models are OpenAI-only: Astra/medium for planning, knowledge-heavy analysis, and complex judgment; Sol/medium for every code modification and routine rule-based review, including Comment Sicko; Terra/medium for read-only evidence collection; and Luna/high only for optional narrow factual lookups. Adversarial review panels use independent Astra agents; code candidate panels use Sol. Setup verifies availability in the target runtime.
 
 Session hooks use `UserPromptSubmit`, `SessionStart`, and `SubagentStart`. State is scoped by session and project, written atomically under `PLUGIN_DATA`, and retained for resume. The disable command removes that session's state. Hooks do not modify repository files or grant external-write authority.
 
-Benny is an optional source pack. It needs a repository, channels, credentials, adapters, and an execution schedule before use. No jobs or messages are created by plugin installation. Its polling contract requires project-specific durable state and reconciliation before unattended activation. Make Bot UI similarly provides an implementation workflow, not a running server.
+Benny is an optional source pack. It needs a repository, channels, credentials, adapters, and an execution schedule before use. No jobs or messages are created by plugin installation. Its polling contract requires project-specific durable state and reconciliation before unattended activation.
 
-PStack's control, review, and source-inspection skills such as `control-ui`, `control-cli`, `deslop`, and `librarian` remain external dependencies when a workflow calls for them. Their existing local installations are retained. Codex's built-in skill authoring tools are used when available.
+PStack bundles `control-ui`, `control-cli`, `deslop`, and `librarian`, including Librarian's lookup helper and tests. Existing local installations are retained; PStack workflows use the bundled copies. Codex's built-in skill authoring tools, app-specific verification skills, and Benny's configured service adapters remain environment dependencies.
 
 ## Validate and update
 
