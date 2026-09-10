@@ -9,7 +9,7 @@ Read [Codex runtime](../../references/codex-runtime.md) before applying this wor
 
 ## Session activation
 
-Start a prompt with `$pstack:poteto-mode` or `$poteto-mode` to enable this mode for the session. The trusted hook confirms persistence with an activation receipt and restores the mode on subsequent prompts, resume, and compaction. `disable $pstack:poteto-mode` clears that session's state. Without a receipt, the request applies to this turn only.
+Include `$pstack:poteto-mode` or `$poteto-mode` anywhere in prompt prose to enable this mode for the session. A linked skill mention also works when its target is this installation's `SKILL.md`. Inline or fenced code examples do not activate the mode. The trusted hook confirms persistence with an activation receipt and restores the mode on subsequent prompts, resume, and compaction. `disable $pstack:poteto-mode` clears that session's state. Without a receipt, the request applies to this turn only.
 
 ## Non-negotiables
 

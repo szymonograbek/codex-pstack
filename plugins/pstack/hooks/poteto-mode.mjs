@@ -4,15 +4,18 @@ import { mkdir, readFile, rename, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const invocation = /^\s*\$(?:pstack:)?poteto-mode(?:\s|$)/u;
-const linkedInvocation = /^\s*\[\$(?:pstack:)?poteto-mode\]\(([^\n]+)\)(?:\s|$)/u;
+const invocation = /(?:^|[^\p{L}\p{N}_$])\$(?:pstack:)?poteto-mode(?![\p{L}\p{N}_:-])/u;
+const linkedInvocation = /\[\$(?:pstack:)?poteto-mode\]\(([^)\n]+)\)/gu;
 const disable = /^\s*disable \$(?:pstack:)?poteto-mode[.!]?\s*$/iu;
 const pluginRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 function activates(prompt, root) {
-  if (invocation.test(prompt)) return true;
-  const linkedPath = linkedInvocation.exec(prompt)?.[1];
-  return linkedPath === path.join(root, "skills/poteto-mode/SKILL.md");
+  const prose = prompt
+    .replace(/(`+)[\s\S]*?\1/gu, " ")
+    .replace(/`[\s\S]*$/u, " ");
+  const skillPath = path.join(root, "skills/poteto-mode/SKILL.md");
+  if ([...prose.matchAll(linkedInvocation)].some(match => match[1] === skillPath)) return true;
+  return invocation.test(prose.replace(linkedInvocation, " "));
 }
 
 export async function handleHook(input, { dataDirectory, root = pluginRoot } = {}) {

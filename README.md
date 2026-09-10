@@ -11,7 +11,7 @@ codex plugin marketplace add szymonograbek/codex-pstack --ref main
 codex plugin add pstack@personal
 ```
 
-Start a new Codex thread. Review and trust the PStack hooks in Codex's hook controls, then send `$pstack:poteto-mode` to enable the mode for that session. An activation receipt confirms persistence. `disable $pstack:poteto-mode` disables it. Without trusted hooks, the skill applies only to the current turn.
+Start a new Codex thread. Review and trust the PStack hooks in Codex's hook controls, then include `$pstack:poteto-mode` anywhere in prompt prose to enable the mode for that session. Linked skill mentions work too; inline and fenced code examples do not activate it. An activation receipt confirms persistence. `disable $pstack:poteto-mode` disables it. Without trusted hooks, the skill applies only to the current turn.
 
 - `$pstack:setup-pstack` configures OpenAI model choices by role.
 - `$pstack:architect`, `$pstack:arena`, `$pstack:swarm`, and `$pstack:interrogate` provide design and review workflows.
@@ -85,6 +85,7 @@ After editing the plugin, run the Codex plugin-creator cachebuster helper, reins
 ## Sources
 
 - [Original PStack](https://github.com/cursor/plugins/tree/df3fb154fb982fb83f649de8646d4af6a0cb16b3/pstack), MIT, Lauren Tan.
+- Reviewed through [PStack 0.15.1](https://github.com/cursor/plugins/commit/f8abeddd1862dc73704e3d719dd73df0d51b8c71). Its evidence-or-label rule was already present in our imported local skill; no additional behavior change was needed.
 - [Codex hooks](https://learn.chatgpt.com/docs/hooks) and [plugins](https://learn.chatgpt.com/docs/plugins). Plugin hooks require trust, use the standard event schema, and receive `PLUGIN_ROOT` and `PLUGIN_DATA`.
 
 `sources.json` records imported files and their original hashes. The upstream license is included inside the plugin. Guide screenshots, upstream development plans, scanner reports, duplicate docs, and vendored dependencies are excluded.

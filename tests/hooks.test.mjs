@@ -20,6 +20,8 @@ async function fixture(t) {
 
 test("activation persists across turns, resume, compaction, and process restarts", async t => {
   const options = await fixture(t);
+  const skillPath = path.join(root, "skills/poteto-mode/SKILL.md");
+  const runtimePath = path.join(root, "references/codex-runtime.md");
   const run = input => {
     const result = spawnSync(process.execPath, [path.join(root, "hooks/poteto-mode.mjs")], {
       input: JSON.stringify(input), encoding: "utf8",
@@ -29,21 +31,46 @@ test("activation persists across turns, resume, compaction, and process restarts
     return result.stdout ? JSON.parse(result.stdout) : null;
   };
   assert.equal(run(prompt("hello")), null);
-  assert.match(run(prompt("$pstack:poteto-mode fix this")).hookSpecificOutput.additionalContext, /activation receipt/);
+  const activation = run(prompt(`Please implement the change. Use [$pstack:poteto-mode](${skillPath}) to implement this.`));
+  assert.match(activation.hookSpecificOutput.additionalContext, /activation receipt/);
   assert.match(run(prompt("continue")).hookSpecificOutput.additionalContext, /remains active/);
   for (const source of ["resume", "compact"]) {
     const output = run({ ...prompt(""), hook_event_name: "SessionStart", source });
     assert.equal(output.hookSpecificOutput.hookEventName, "SessionStart");
     assert.match(output.hookSpecificOutput.additionalContext, /remains active/);
+    assert.ok(output.hookSpecificOutput.additionalContext.includes(skillPath));
+    assert.ok(output.hookSpecificOutput.additionalContext.includes(runtimePath));
   }
   assert.match(run(prompt("disable $pstack:poteto-mode")).hookSpecificOutput.additionalContext, /disabled/);
   assert.equal(run(prompt("continue")), null);
 });
 
-test("state is isolated by session and project and does not interpret quoted mentions", async t => {
+test("bare invocations activate anywhere with aliases and punctuation", async t => {
   const options = await fixture(t);
-  for (const text of ["explain $poteto-mode", "`$poteto-mode`", "$poteto-mode-other", "[$poteto-mode](/foreign/skills/poteto-mode/SKILL.md)"]) {
-    assert.equal(await handleHook(prompt(text), options), null);
+  const cases = [
+    "$poteto-mode fix this",
+    "explain $poteto-mode before proceeding",
+    "Please fix this with $poteto-mode.",
+    "Use ($pstack:poteto-mode), please.",
+  ];
+  for (const [index, text] of cases.entries()) {
+    const output = await handleHook(prompt(text, `bare-${index}`), options);
+    assert.match(output.hookSpecificOutput.additionalContext, /activation receipt/);
+  }
+});
+
+test("state is isolated and examples, suffixes, and foreign links do not activate", async t => {
+  const options = await fixture(t);
+  const inactive = [
+    "`$poteto-mode`",
+    "``$poteto-mode``",
+    "Example:\n```text\n$pstack:poteto-mode fix this\n```",
+    "$poteto-mode-other",
+    "$pstack:poteto-mode-extra",
+    "[$poteto-mode](/foreign/skills/poteto-mode/SKILL.md)",
+  ];
+  for (const [index, text] of inactive.entries()) {
+    assert.equal(await handleHook(prompt(text, `inactive-${index}`), options), null);
   }
   await handleHook(prompt("$poteto-mode"), options);
   assert.equal(await handleHook(prompt("continue", "two"), options), null);
@@ -55,13 +82,14 @@ test("state is isolated by session and project and does not interpret quoted men
 test("linked skill invocation works and partial or corrupt state cannot activate", async t => {
   const options = await fixture(t);
   const link = `[$pstack:poteto-mode](${path.join(root, "skills/poteto-mode/SKILL.md")})`;
-  assert.ok(await handleHook(prompt(link), options));
+  const foreign = "[$poteto-mode](/foreign/skills/poteto-mode/SKILL.md)";
+  assert.ok(await handleHook(prompt(`Context first. ${foreign} Use ${link} to implement this.`, "linked"), options));
   const directory = path.join(options.dataDirectory, "poteto-mode");
   const files = await readdir(directory);
   assert.equal(files.length, 1);
   assert.deepEqual(JSON.parse(await readFile(path.join(directory, files[0]), "utf8")), { version: 1, active: true });
   await writeFile(path.join(directory, files[0]), "{");
-  assert.equal(await handleHook(prompt("continue"), options), null);
+  assert.equal(await handleHook(prompt("continue", "linked"), options), null);
   assert.equal(await handleHook({ ...prompt("$poteto-mode"), session_id: null }, options), null);
   assert.equal(await handleHook(prompt("$poteto-mode"), {}), null);
 });
