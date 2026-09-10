@@ -1,13 +1,13 @@
 ---
 name: interrogate
-description: "Use for interrogate, adversarial review, challenge this, stress test this code, or find blind spots. Independent Astra reviewers challenge changes and return a judged verdict."
+description: "Use for interrogate, adversarial review, challenge this, stress test this code, or find blind spots. Independent mixed-model reviewers challenge changes and return a judged verdict."
 ---
 
 # Interrogate
 
 Read [Codex runtime](../../references/codex-runtime.md) before delegating.
 
-Spawn one independent Astra reviewer per configured entry to adversarially review code changes. Each reviewer gets the same prompt and rubric and works without seeing the other reviews.
+Spawn one independent reviewer per configured entry to adversarially review code changes. Each reviewer gets the same prompt and rubric and works without seeing the other reviews.
 
 The deliverable is a synthesized verdict. Do NOT auto-apply changes.
 
@@ -38,16 +38,16 @@ Launch all reviewers in a single message using the subagent tools. Use the `inte
 
 | Subagent | Default model |
 |----------|---------------|
-| Reviewer A | `gpt-6-astra/medium` |
-| Reviewer B | `gpt-6-astra/medium` |
-| Reviewer C | `gpt-6-astra/medium` |
-| Reviewer D | `gpt-6-astra/medium` |
+| Reviewer A | `gpt-6-astra/low` |
+| Reviewer B | `gpt-5.6-sol/medium` |
+| Reviewer C | `gpt-5.6-sol/medium` |
+| Reviewer D | `gpt-5.6-sol/medium` |
 
 For each reviewer:
 - `model`: the configured `interrogate reviewers` entry, or the table default with no configured line
 - read-only brief: no edits
 
-Set the configured model and reasoning effort separately. If the required Astra pair is unavailable, report the blocker. Do not substitute a code or exploration model for judgment.
+Set the configured model and reasoning effort separately. If a required configured pair is unavailable, report the blocker. Keep each reviewer's assigned model and effort.
 
 Read `references/reviewer-prompt.md` and fill in the template with:
 1. The stated intent
@@ -59,7 +59,7 @@ The same filled template goes to all reviewers, so every reviewer applies the co
 
 ## Step 4, Synthesize
 
-Use `gpt-6-astra/medium` to synthesize results and perform lead judgment:
+Use `gpt-6-astra/low` to synthesize results and perform lead judgment:
 
 1. **Parse all findings** from the reviewers
 2. **Identify consensus**. Findings raised by 2+ reviewers independently are highest signal.

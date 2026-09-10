@@ -122,7 +122,7 @@ If your scope assessment suggests a single-commit trivial target where the PR de
 
 Spawn one synthesizer subagent:
 
-- `model`: your configured why-synthesizer model (default `gpt-6-astra/medium`)
+- `model`: your configured why-synthesizer model (default `gpt-6-astra/low`)
 - use normal agent permissions so the synthesizer can spot-verify citations through MCPs. It still shouldn't write anything.
 
 The synthesizer gets:

@@ -12,13 +12,15 @@ Use only OpenAI models exposed by the current runtime. Select by the work being 
 
 | Purpose | Model | Reasoning effort |
 |---|---|---|
-| Planning, architecture, knowledge-heavy analysis and synthesis, complex diagnosis, and judgment-intensive review | `gpt-6-astra` | `medium` |
+| Planning, architecture, knowledge-heavy analysis and synthesis, complex diagnosis, and judgment-intensive review | `gpt-6-astra` | `low` |
 | Routine rule-based review, including Comment Sicko, and straightforward prose | `gpt-5.6-sol` | `medium` |
 | Every code modification, including implementation, refactoring, bug fixes, performance changes, tests, and integration | `gpt-5.6-sol` | `medium` |
 | Read-only exploration and evidence collection, without a verdict | `gpt-5.6-terra` | `medium` |
 | Optional narrow factual lookups, when explicitly selected | `gpt-5.6-luna` | `high` |
 
-Astra is for work that benefits from deeper knowledge and reasoning, not every task called a review or judgment. A mixed task separates that analysis and planning from code changes on Sol. This also applies to difficult code, mechanical edits, code generated during design, and edits that integrate review findings. Design runners return plans and pseudocode; Sol applies the resulting code. Adversarial review panels use independent Astra reviewers. Sol handles routine rule checks and verification; use Astra when interpreting evidence requires complex reasoning.
+Astra defaults to low effort. Higher effort requires explicit user approval. Keep existing agent counts; mix models rather than reducing fan-out. Sol/medium is also valid for the three Sol slots in design and review panels.
+
+Astra is for work that benefits from deeper knowledge and reasoning, not every task called a review or judgment. A mixed task separates that analysis and planning from code changes on Sol. This also applies to difficult code, mechanical edits, code generated during design, and edits that integrate review findings. Design runners return plans and pseudocode; Sol applies the resulting code. Four-agent design and adversarial review panels use one Astra/low and three Sol/medium agents. Sol handles routine rule checks and verification; use Astra when interpreting evidence requires complex reasoning.
 
 Role settings in `~/.codex/AGENTS.md` use `model/effort` pairs. Split the pair into the tool's separate `model` and `reasoning_effort` arguments; never pass the joined pair as a model slug. Set both explicitly on every dispatch. A legacy model-only setting uses the effort in the table. Validate the pair against the runtime before dispatch. Report a blocker if the required model or effort is unavailable; do not silently substitute a different family or effort.
 

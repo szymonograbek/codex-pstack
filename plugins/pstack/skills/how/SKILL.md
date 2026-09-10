@@ -31,7 +31,7 @@ Each explorer gets the prompt in `references/explorer-prompt.md` with its angle 
 
 Spawn one subagent that explores and explains in one pass:
 
-- `model`: your configured how-explainer model (default `gpt-6-astra/medium`)
+- `model`: your configured how-explainer model (default `gpt-6-astra/low`)
 - read-only brief: no edits
 
 Build its prompt from `references/explainer-prompt.md` without the explorer-findings section. Go to Step 4.
@@ -40,7 +40,7 @@ Build its prompt from `references/explainer-prompt.md` without the explorer-find
 
 Once all explorers have returned, spawn one subagent to synthesize their findings into one explanation:
 
-- `model`: your configured how-explainer model (default `gpt-6-astra/medium`)
+- `model`: your configured how-explainer model (default `gpt-6-astra/low`)
 - read-only brief: no edits
 
 Build its prompt from `references/explainer-prompt.md` with every explorer's findings filled in.

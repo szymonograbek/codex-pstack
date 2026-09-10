@@ -27,7 +27,7 @@ Validate these capabilities through the actual Codex connectors:
 
 Read `../reproduce-and-fix-issues/references/control-adapter.md`. A missing required capability keeps that workflow paused. Give subagents no external-write authority. If the environment cannot isolate credentials and write tools, keep the work in the coordinator.
 
-Each `models` entry contains `model` and `reasoning_effort`. Use Astra/medium for triage, reproduction judgment, and media review; use Sol/medium for every code change. Verify both fields against the target runtime and pass them as separate dispatch arguments.
+Each `models` entry contains `model` and `reasoning_effort`. Use Astra/low for triage, reproduction judgment, and media review; use Sol/medium for every code change. Verify both fields against the target runtime and pass them as separate dispatch arguments.
 
 ## Select the trigger
 

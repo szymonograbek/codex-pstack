@@ -18,7 +18,7 @@
 2. **Set up sanitized environments.** Per-candidate working dir with the variant in place. Plant any context an organic task would have: a project skeleton, the skills the candidate would naturally read.
 3. **Author one organic prompt.** What a user would type. No leakage of what's being measured.
 4. **Spawn N parallel candidates** using the role-specific model/effort pairs in the **arena** skill's Phase B. Each works in its own sanitized dir. Same prompt to each.
-5. **Spawn one blinded judge** on `gpt-6-astra/medium` per the **arena** skill's Phase C. Judge sees outputs by sanitized label and the rubric, never a model name.
+5. **Spawn one blinded judge** on `gpt-6-astra/low` per the **arena** skill's Phase C. Judge sees outputs by sanitized label and the rubric, never a model name.
 6. **Verify the chain from transcripts, not self-report.** Read each candidate's transcript under `${CODEX_HOME:-$HOME/.codex}/sessions/`, selecting only files whose `session_meta.payload.cwd` matches the active workspace. Do not read private chats from unrelated projects. Look at which files each candidate actually opened. Grade chain-following from the files it really read plus the shape of the code, never from the candidate's own claims.
 7. **Read every candidate output yourself** end to end. Compare to the judge's verdict. Disagreement means a model is biased or the rubric is ambiguous. Synthesize.
 
