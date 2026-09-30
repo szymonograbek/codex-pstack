@@ -22,7 +22,7 @@ When in doubt, take the simple path.
 
 Decompose the question into 2 to 4 exploration angles, each a distinct slice of the subsystem. Spawn all explorers in a single message:
 
-- `model`: your configured how-explorer model (default `gpt-5.6-terra/medium`)
+- `model`: the configured `how explorer` pair (default `gpt-6.1-sol/medium`)
 - read-only brief: no edits
 
 Each explorer gets the prompt in `references/explorer-prompt.md` with its angle filled in. Then go to Step 3.
@@ -31,7 +31,7 @@ Each explorer gets the prompt in `references/explorer-prompt.md` with its angle 
 
 Spawn one subagent that explores and explains in one pass:
 
-- `model`: your configured how-explainer model (default `gpt-6-astra/low`)
+- `model`: the configured `how explainer` pair (default `gpt-6-astra/low`)
 - read-only brief: no edits
 
 Build its prompt from `references/explainer-prompt.md` without the explorer-findings section. Go to Step 4.
@@ -40,7 +40,7 @@ Build its prompt from `references/explainer-prompt.md` without the explorer-find
 
 Once all explorers have returned, spawn one subagent to synthesize their findings into one explanation:
 
-- `model`: your configured how-explainer model (default `gpt-6-astra/low`)
+- `model`: the configured `how explainer` pair (default `gpt-6-astra/low`)
 - read-only brief: no edits
 
 Build its prompt from `references/explainer-prompt.md` with every explorer's findings filled in.

@@ -17,7 +17,7 @@ Enumerate the OpenAI model slugs and supported reasoning efforts you can pass to
 
 ### 2. Load current state
 
-The default role-to-model mapping is the section shape shown in step 5 below. If `~/.codex/AGENTS.md` already has a `pstack model configuration` section, read it and treat its values as the current choices. Otherwise start from those defaults.
+The default role-to-model mapping is the section shape shown in step 5 below. If `~/.codex/AGENTS.md` already has a `pstack model configuration` section, read it and treat its values as the current choices. Otherwise start from those defaults. Existing role lines pin their recorded pairs, including older defaults. Delete a role line to restore its current default; a rerun preserves explicit choices and validates them against Codex runtime. Report and remove retired role lines from this section.
 
 ### 3. Map and confirm
 
@@ -39,25 +39,25 @@ Write or replace only the `pstack model configuration` section in `~/.codex/AGEN
 # pstack model configuration. One line per role. Delete a line to fall back to the skill default.
 # Values are model/effort pairs, passed as separate tool arguments. Inheritance aliases require a matching parent model and effort. Repeated panel entries are independent agents.
 planning and architecture: gpt-6-astra/low
-feature, refactoring: gpt-5.6-sol/medium
-bug-fix: gpt-5.6-sol/medium
-perf-issue: gpt-5.6-sol/medium
-hillclimb: gpt-5.6-sol/medium
+feature, refactoring: gpt-6.1-sol/medium
+bug-fix: gpt-6.1-sol/medium
+perf-issue: gpt-6.1-sol/medium
+hillclimb: gpt-6.1-sol/medium
 judgment and prose: gpt-6-astra/low
-comment sicko: gpt-5.6-sol/medium
-hardest tasks: gpt-5.6-sol/medium
-how explorer: gpt-5.6-terra/medium
+comment sicko: gpt-6.1-sol/medium
+hardest tasks: gpt-6.1-sol/medium
+how explorer: gpt-6.1-sol/medium
 how explainer: gpt-6-astra/low
-why investigators: gpt-5.6-terra/medium
+why investigators: gpt-6.1-sol/medium
 why synthesizer: gpt-6-astra/low
 reflect tooling: gpt-6-astra/low
 reflect judgment, divergent, synthesizer: gpt-6-astra/low
-arena runners: gpt-5.6-sol/medium, gpt-5.6-sol/medium, gpt-5.6-sol/medium, gpt-5.6-sol/medium
-arena design runners: gpt-6-astra/low, gpt-5.6-sol/medium, gpt-5.6-sol/medium, gpt-5.6-sol/medium
+arena runners: gpt-6.1-sol/medium, gpt-6.1-sol/medium, gpt-6.1-sol/medium, gpt-6.1-sol/medium
+arena design runners: gpt-6-astra/low, gpt-6.1-sol/medium, gpt-6.1-sol/medium, gpt-6.1-sol/medium
 arena cross-judge pool: gpt-6-astra/low
-swarm workers: gpt-5.6-sol/medium
-architect runners: gpt-6-astra/low, gpt-5.6-sol/medium, gpt-5.6-sol/medium, gpt-5.6-sol/medium
-interrogate reviewers: gpt-6-astra/low, gpt-5.6-sol/medium, gpt-5.6-sol/medium, gpt-5.6-sol/medium
+swarm workers: gpt-6.1-sol/medium
+architect runners: gpt-6-astra/low, gpt-6.1-sol/medium, gpt-6.1-sol/medium, gpt-6.1-sol/medium
+interrogate reviewers: gpt-6-astra/low, gpt-6.1-sol/medium, gpt-6.1-sol/medium, gpt-6.1-sol/medium
 ```
 
 ### 6. Link custom agents

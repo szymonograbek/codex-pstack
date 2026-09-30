@@ -79,7 +79,7 @@ Aim for a complete **coverage map**, not a minimal one. Document the null, don't
 Launch all matching investigators in a single message so they run concurrently. Don't ask one agent to cover multiple MCPs.
 
 Subagent config (each):
-- `model`: your configured why-investigators model (default `gpt-5.6-terra/medium`)
+- `model`: the configured `why investigators` pair (default `gpt-6.1-sol/medium`)
 - use normal agent permissions so MCP access remains available. Investigators still shouldn't write anything.
 
 Each investigator gets:
@@ -122,7 +122,7 @@ If your scope assessment suggests a single-commit trivial target where the PR de
 
 Spawn one synthesizer subagent:
 
-- `model`: your configured why-synthesizer model (default `gpt-6-astra/low`)
+- `model`: the configured `why synthesizer` pair (default `gpt-6-astra/low`)
 - use normal agent permissions so the synthesizer can spot-verify citations through MCPs. It still shouldn't write anything.
 
 The synthesizer gets:

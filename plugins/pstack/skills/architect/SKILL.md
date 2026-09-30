@@ -31,7 +31,7 @@ Skip Phase A only when the work is genuinely greenfield with no surrounding syst
 
 Run the **arena** skill with the design-sketch task and the Phase A grounding artifacts. Pass `references/runner-prompt.md` as each runner's prompt. Each candidate produces a design package shaped per `references/rationale-template.md`.
 
-Use your configured architect runners, defaulting to four independent agents: one `gpt-6-astra/low` and three `gpt-5.6-sol/medium`. Return plans and pseudocode; code changes belong to the Sol implementation phase.
+Use your configured architect runners, defaulting to four independent agents: one `gpt-6-astra/low` and three `gpt-6.1-sol/medium`. Return plans and pseudocode; code changes belong to the Sol implementation phase.
 
 Design it twice. Require at least two structurally distinct candidates before synthesis, even when the first looks sufficient. This is the **exhaust-the-design-space** principle skill made concrete. Whole-shape alternatives, not point fixes inside one shape.
 
@@ -53,7 +53,7 @@ If the human pushes back on the shape (in a checkpoint or after the fact), treat
 
 ## Phase D: Implement against the sketch
 
-Have `gpt-5.6-sol/medium` replace `not implemented` bodies with code and pseudocode with logic. The synthesized sketch is the contract.
+Have `gpt-6.1-sol/medium` replace `not implemented` bodies with code and pseudocode with logic. The synthesized sketch is the contract.
 
 Deviations from the sketch are signal worth surfacing, not friction to absorb silently. If a function needs a parameter the sketch didn't anticipate, ask whether the sketch was wrong, the requirement was missed, or the implementation is overreaching.
 

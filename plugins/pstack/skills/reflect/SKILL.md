@@ -29,19 +29,19 @@ For each candidate, check that its `session_meta.payload.cwd` matches the active
 
 ### 2. Spawn three reviewers in parallel
 
-One message, three subagent calls, explicit `model:` on each. Reviewers need MCP access for context lookups (tickets, chat threads, observability traces referenced in the transcript). They receive read-only briefs but retain normal agent permissions so MCP access remains available.
+One message, three subagent calls, explicit model and reasoning effort on each. Reviewers need MCP access for context lookups (tickets, chat threads, observability traces referenced in the transcript). They receive read-only briefs but retain normal agent permissions so MCP access remains available.
 
-| Lens | `model` | Prompt template |
-|---|---|---|
-| Judgment | your configured reflect-judgment model (default `gpt-6-astra/low`) | `references/judgment-reviewer.md` |
-| Tooling | your configured reflect-tooling model (default `gpt-6-astra/low`) | `references/tooling-reviewer.md` |
-| Divergent | your configured reflect-judgment model (default `gpt-6-astra/low`) | `references/divergent-reviewer.md` |
+| Lens | Role line | Default pair | Prompt template |
+|---|---|---|---|
+| Judgment | `reflect judgment, divergent, synthesizer` | `gpt-6-astra/low` | `references/judgment-reviewer.md` |
+| Tooling | `reflect tooling` | `gpt-6-astra/low` | `references/tooling-reviewer.md` |
+| Divergent | `reflect judgment, divergent, synthesizer` | `gpt-6-astra/low` | `references/divergent-reviewer.md` |
 
 Pass each template verbatim, substituting the transcript path or digest where marked. Reviewers return findings in the subagent response body.
 
 ### 3. Synthesize
 
-One subagent call using your configured reflect-judgment model (default `gpt-6-astra/low`). The synthesizer's quality check includes spot-verifying citations, which can require MCP access. Give it a read-only brief but retain normal agent permissions. Use `references/synthesizer.md` verbatim, with each reviewer's full output inlined where marked. The synthesizer returns a structured Accepted / Rejected / Backlog list.
+One subagent call using the configured `reflect judgment, divergent, synthesizer` pair (default `gpt-6-astra/low`). The synthesizer's quality check includes spot-verifying citations, which can require MCP access. Give it a read-only brief but retain normal agent permissions. Use `references/synthesizer.md` verbatim, with each reviewer's full output inlined where marked. The synthesizer returns a structured Accepted / Rejected / Backlog list.
 
 ### 4. Structural enforcement check
 

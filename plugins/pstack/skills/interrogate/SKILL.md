@@ -39,12 +39,12 @@ Launch all reviewers in a single message using the subagent tools. Use the `inte
 | Subagent | Default model |
 |----------|---------------|
 | Reviewer A | `gpt-6-astra/low` |
-| Reviewer B | `gpt-5.6-sol/medium` |
-| Reviewer C | `gpt-5.6-sol/medium` |
-| Reviewer D | `gpt-5.6-sol/medium` |
+| Reviewer B | `gpt-6.1-sol/medium` |
+| Reviewer C | `gpt-6.1-sol/medium` |
+| Reviewer D | `gpt-6.1-sol/medium` |
 
 For each reviewer:
-- `model`: the configured `interrogate reviewers` entry, or the table default with no configured line
+- `model`: the configured `interrogate reviewers` entry, or the table default with no configured line. For an `auto` or `inherit-parent` entry, use the parent only when its model and effort match the role, per Codex runtime.
 - read-only brief: no edits
 
 Set the configured model and reasoning effort separately. If a required configured pair is unavailable, report the blocker. Keep each reviewer's assigned model and effort.

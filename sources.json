@@ -2,7 +2,7 @@
   "upstream": {
     "repository": "https://github.com/cursor/plugins",
     "revision": "df3fb154fb982fb83f649de8646d4af6a0cb16b3",
-    "reviewedRevision": "f8abeddd1862dc73704e3d719dd73df0d51b8c71",
+    "reviewedRevision": "fae2c6ed95821bd85f614a73e4842e13229fa5e5",
     "subdirectory": "pstack"
   },
   "localSource": "~/.agents/skills",

@@ -26,7 +26,7 @@ The N candidates will receive the same prompt, so the prompt is the contract.
 
 1. State the artifact each candidate is producing.
 2. Derive the rubric. State what success looks like for *this* task, then turn it into 3-6 concrete gradeable criteria. The rubric is the picker's tool in Phase D. Candidates only see the task.
-3. Pick the runners by artifact. Code candidates use the configured `arena runners` list, defaulting to four independent `gpt-5.6-sol/medium` agents. Plans and design candidates use `arena design runners`, defaulting to four independent agents: one `gpt-6-astra/low` and three `gpt-5.6-sol/medium`. An architect invocation supplies its `architect runners` list instead. Read these pairs from `pstack model configuration` in `~/.codex/AGENTS.md`; validate them against Codex runtime. Keep design outputs as plans or pseudocode and have Sol apply code changes.
+3. Pick the runners by artifact. Code candidates use the configured `arena runners` list, defaulting to four independent `gpt-6.1-sol/medium` agents. Plans and design candidates use `arena design runners`, defaulting to four independent agents: one `gpt-6-astra/low` and three `gpt-6.1-sol/medium`. An architect invocation supplies its `architect runners` list instead. Read these pairs from `pstack model configuration` in `~/.codex/AGENTS.md`; validate them against Codex runtime. Keep design outputs as plans or pseudocode and have Sol apply code changes.
 4. Assign output paths. Each candidate writes to its own location (a git worktree where possible, otherwise `/tmp/arena-<slug>/candidate-<n>/`), per the **separate-before-serializing-shared-state** principle skill.
 
 ## Phase B: Fan out
@@ -55,7 +55,7 @@ Record the pick and the reason in a short synthesis note alongside the base arti
 
 Walk each losing candidate once more and identify what is worth porting into the base. The signal is usually one or two things per candidate, not most of it.
 
-Have `gpt-6-astra/low` select the grafts, then `gpt-5.6-sol/medium` apply code changes, per the **redesign-from-first-principles** principle skill. Don't paste mechanically. The result has to remain coherent under one mental model.
+Have `gpt-6-astra/low` select the grafts, then `gpt-6.1-sol/medium` apply code changes, per the **redesign-from-first-principles** principle skill. Don't paste mechanically. The result has to remain coherent under one mental model.
 
 Record what was grafted, from which candidate, and what was rejected and why.
 
