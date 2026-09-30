@@ -1,6 +1,6 @@
 ---
 name: setup-pstack
-description: Configure PStack models and install its custom Codex agents as symlinks from a local checkout. Use for $setup-pstack, "configure pstack models", or setting up PStack agents.
+description: Configure PStack models and register its custom Codex agents from a local checkout. Use for $setup-pstack, "configure pstack models", or setting up PStack agents.
 ---
 
 # Setup pstack
@@ -60,23 +60,23 @@ architect runners: gpt-6-astra/low, gpt-6.1-sol/medium, gpt-6.1-sol/medium, gpt-
 interrogate reviewers: gpt-6-astra/low, gpt-6.1-sol/medium, gpt-6.1-sol/medium, gpt-6.1-sol/medium
 ```
 
-### 6. Link custom agents
+### 6. Register custom agents
 
 Use a persistent checkout of the PStack repository, not a versioned plugin cache or temporary marketplace snapshot. Accept a checkout path from the user or locate an existing checkout whose Git remote matches the installed PStack repository. If none exists, ask where to keep it. Resolve `<plugin-root>` to that checkout's `plugins/pstack` directory.
 
-Run the bundled installer with the absolute plugin root:
+Locate the active Codex executable and run the bundled installer with its absolute path. Use `command -v codex` when available; otherwise locate the executable in the installed Codex application.
 
 ```sh
-node <setup-skill-dir>/scripts/install-agents.mjs <plugin-root>
+node <setup-skill-dir>/scripts/install-agents.mjs <plugin-root> <codex-binary>
 ```
 
-It creates `poteto-agent.toml` and `comment-sicko.toml` symlinks under `${CODEX_HOME:-$HOME/.codex}/agents/`. Correct links are unchanged. Existing files or links pointing elsewhere are preserved and reported as conflicts; ask before replacing them. Keep the source checkout in place. Pulling updates there updates the linked definitions; reinstalling only the plugin does not update that checkout.
+It registers `poteto-agent` and `comment-sicko` in `${CODEX_HOME:-$HOME/.codex}/config.toml` with canonical `config_file` paths into the checkout. Existing registrations pointing elsewhere, regular agent files, foreign links, and occupied backup paths are preserved and reported as conflicts; ask before replacing them. Matching links from older PStack versions move to `${CODEX_HOME:-$HOME/.codex}/backups/pstack-agent-symlinks/` to prevent duplicate discovery. Keep the checkout in place and pull updates there to update the definitions.
 
 Poteto's model and effort are selected per phase at dispatch; its definition leaves both unset. Comment Sicko fixes Sol/medium. Custom-agent file settings take precedence over dispatch settings, so report conflicting role choices instead of claiming the global role section overrides them.
 
 ### 7. Confirm
 
-Report the model section and both symlink targets. Start a new Codex session to load the agents. Verify the runtime exposes `poteto-agent` and `comment-sicko` before dispatching by name; creating the files alone is not proof of discovery. Re-running this skill updates the model section and verifies the links.
+Report the model section and both registered config paths. Start a new Codex session and launch each role once. Registration and role discovery are not proof that dispatch succeeds. Re-running this skill updates the model section and verifies the registrations without rewriting unchanged config.
 
 ### 8. Offer a verification skill (optional)
 

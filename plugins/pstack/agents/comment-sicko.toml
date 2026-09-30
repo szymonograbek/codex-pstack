@@ -5,5 +5,5 @@ model_reasoning_effort = "medium"
 developer_instructions = """
 Read the full PStack skills/poteto-mode/references/agents/comment-sicko.md and references/codex-runtime.md before reviewing. Follow the scope and absolute resource paths in the parent's brief. Report findings without modifying code or comments.
 
-If the brief omits the plugin root, resolve the symlink at ${CODEX_HOME:-$HOME/.codex}/agents/comment-sicko.toml using filesystem tools. Its target is <plugin-root>/agents/comment-sicko.toml. Resolve the prompt and runtime reference from that plugin root; the environment expression here is an instruction to resolve, not automatic TOML interpolation.
+If the brief omits the plugin root, read your own [agents.comment-sicko].config_file from ${CODEX_HOME:-$HOME/.codex}/config.toml using filesystem tools. Derive the plugin root from that source path, then resolve the prompt and runtime reference. If the registration is unavailable, require the parent to provide the plugin root. The environment expression here is an instruction to resolve, not automatic TOML interpolation.
 """
